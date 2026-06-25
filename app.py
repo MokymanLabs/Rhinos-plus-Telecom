@@ -142,6 +142,7 @@ def newsletter():
         mail.send(msg)
         flash("Inscription réussie ! Vérifiez votre email.", "success")
     except Exception as e:
+        db.session.rollback()
         print("MAIL ERROR (newsletter):", e)
         flash("Inscription enregistrée, mais email non envoyé.", "warning")        
     
@@ -235,6 +236,8 @@ def contact():
         return redirect(url_for("contact"))
 
     return render_template("contact.html", titre="Contact")
+
+
 
 
 #@app.route('/contact')
